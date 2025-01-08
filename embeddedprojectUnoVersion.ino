@@ -53,14 +53,15 @@ String serialInput = ""; // Store serial input
 
 
 void setup() {
-  Serial.begin(9600);
-  lcd.init();
+  Serial.begin(9600);//Initialize Serial communication
+  lcd.init();//Initialize LCD
   lcd.backlight();
   lcd.setCursor(0, 0);
   lcd.print("Initializing...");
   Serial.println("Initializing...");
   delay(2000);
 
+  //Pin modes
   pinMode(MODE_BUTTON_PIN, INPUT_PULLUP);
   pinMode(INCREMENT_BUTTON_PIN, INPUT_PULLUP);
   pinMode(CONFIRM_BUTTON_PIN, INPUT_PULLUP);
@@ -74,10 +75,11 @@ void setup() {
 
   pinMode(BUZZER_PIN, OUTPUT);
 
+    //set initial date and time
   char monthStr[4]; // Array to store the month abbreviation 
-  sscanf(__TIME__,"%d:%d:%d",&hour,&minute,&second);
+  sscanf(__TIME__,"%d:%d:%d",&hour,&minute,&second);// take the current time from laptop
   rtc.setDate(day, month, year);
-  sscanf(__DATE__,"%s %d %d",monthStr,&day,&year);
+  sscanf(__DATE__,"%s %d %d",monthStr,&day,&year);//take the current date from laptop
   rtc.setTime(hour, minute, second);
 if (strcmp(monthStr, "Jan") == 0) month = 1;
 else if (strcmp(monthStr, "Feb") == 0) month = 2;
@@ -92,6 +94,7 @@ else if (strcmp(monthStr, "Oct") == 0) month = 10;
 else if (strcmp(monthStr, "Nov") == 0) month = 11;
 else if (strcmp(monthStr, "Dec") == 0) month = 12;
 
+  //clear lcd an display ready message to know that we've done initializion
   lcd.clear();
   lcd.print("Ready");
   Serial.println("Ready");
@@ -100,12 +103,16 @@ else if (strcmp(monthStr, "Dec") == 0) month = 12;
   // Display menu after initialization
   displayMenu();
 
+  //initilaize scheduler
   scheduler_init(millis);
 
+  //create task handle for scheduler
   s_task_handle_t normalTaskHandle;
   s_task_handle_t configModeTaskHandle;
   s_task_handle_t menuTaskHandle;
-s_task_handle_t dateTimeConfigTaskHandle;
+  s_task_handle_t dateTimeConfigTaskHandle;
+
+  //create tasks
  s_task_create(true, S_TASK_NORMAL_PRIORITY, 500, taskDateTimeConfig, &dateTimeConfigTaskHandle, NULL); 
   s_task_create(true, S_TASK_NORMAL_PRIORITY, 1000, taskNormalOperation, &normalTaskHandle, NULL);
   s_task_create(true, S_TASK_NORMAL_PRIORITY, 1000, taskEnterConfigMode, &configModeTaskHandle, NULL);
@@ -193,9 +200,8 @@ void activateLED(int slot) {
       break;
   }
 
-  digitalWrite(ledPin, HIGH);
+  digitalWrite(ledPin, !digitalRead(ledPin);// we change in this code for optimiztion
   delay(5000); // LED ON duration (5 seconds)
-  digitalWrite(ledPin, LOW);
 }
 
 // Task for normal operation
@@ -255,7 +261,7 @@ void handleConfigMode() {
     lcd.print(minute);
     lcd.print("   ");
   }
-
+//handle button for configuration mode| define each butoon functionality when enter configuration mode
   handleButtonPress(MODE_BUTTON_PIN, changeSlot);
   handleButtonPress(INCREMENT_BUTTON_PIN, incrementValue);
   handleButtonPress(CONFIRM_BUTTON_PIN, confirmValue);
