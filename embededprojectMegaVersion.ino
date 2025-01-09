@@ -5,26 +5,26 @@
 #include <Servo.h>
 
 // Pin definitions
-#define RTC_RST_PIN 8
-#define RTC_IO_PIN 10
-#define RTC_SCLK_PIN 9
+#define RTC_RST_PIN 6
+#define RTC_IO_PIN 8
+#define RTC_SCLK_PIN 7
 
-#define MODE_BUTTON_PIN 3
-#define INCREMENT_BUTTON_PIN 4
-#define CONFIRM_BUTTON_PIN 5
-#define BACK_BUTTON_PIN 6
+#define MODE_BUTTON_PIN 37
+#define INCREMENT_BUTTON_PIN 35
+#define CONFIRM_BUTTON_PIN 33
+#define BACK_BUTTON_PIN 31
 
-#define LED1_PIN 7
-#define LED2_PIN 11
-#define LED3_PIN 12
-#define LED4_PIN 13
+#define LED1_PIN 45
+#define LED2_PIN 44
+#define LED3_PIN 43
+#define LED4_PIN 42
 
 #define LCD_ADDR 0x27
 #define LCD_COLS 16
 #define LCD_ROWS 2
 
 #define BUZZER_PIN 2
-#define SET_BUTTON_PIN A0 // Define pin for set button
+#define SET_BUTTON_PIN 30 // Define pin for set button
 
 
 // RTC and LCD initialization
