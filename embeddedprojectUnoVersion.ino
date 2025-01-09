@@ -5,7 +5,7 @@
 
 // Pin definitions
 #define RTC_RST_PIN 8
-#define RTC_IO_PIN 10
+#define RTC_IO_PIN 7
 #define RTC_SCLK_PIN 9
 
 #define MODE_BUTTON_PIN 3
