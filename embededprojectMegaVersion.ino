@@ -226,6 +226,15 @@ void taskNormalOperation(s_task_handle_t, s_task_msg_t**, void*) {
     displayNextSlotAndCurrentTime();
     handleNormalOperation();
 
+      if (digitalRead(MODE_BUTTON_PIN) == LOW) {
+      isConfigMode = true;
+      isConfigMinutes = false;
+      lcd.clear();
+      lcd.print("Set Slot ");
+      lcd.print(selectedSlot + 1);
+      delay(1000);
+    }
+    
     if (digitalRead(SET_BUTTON_PIN) == LOW) { // Use SET_BUTTON_PIN to enter date/time setting mode
       isSettingDateTime = true;
       lcd.clear();
